@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -17,12 +18,11 @@ func main() {
 
 func run() {
 	page := 1
-	limit := 10
 	var username string
 	var input string
-	fmt.Print("Enter username: ")
+	fmt.Print("Enter username to get the latest github activity: ")
 	fmt.Scan(&username)
-	resp, err := request(username, page, limit)
+	resp, err := request(username, page)
 	if err != nil {
 		log.Fatalf("Error getting events: %v", err)
 	}
@@ -46,7 +46,7 @@ func run() {
 				fmt.Printf("Invalid page number: %d\n", page)
 				continue
 			}
-			resp, err = request(username, page, limit)
+			resp, err = request(username, page)
 			if err != nil {
 				fmt.Printf("Error getting events: %v\n", err)
 				continue
@@ -60,7 +60,7 @@ func run() {
 			if input == "q" {
 				break
 			}
-			resp, err = request(username, page, limit)
+			resp, err = request(username, page)
 			if err != nil {
 				fmt.Printf("Error getting events: %v\n", err)
 				continue
@@ -78,18 +78,19 @@ type response struct {
 	Events     []models.Event
 }
 
-func request(username string, page, limit int) (*response, error) {
-	url := fmt.Sprintf("https://api.github.com/users/%s/events?page=%d&per_page=%d", username, page, limit)
+func request(username string, page int) (*response, error) {
+	fmt.Println("Loading events...")
+	time.Sleep(1 * time.Second)
+	url := fmt.Sprintf("https://api.github.com/users/%s/events?page=%d", username, page)
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalf("Error performing GET request: %v", err)
+		log.Fatalf("Error performing request: %v", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		log.Fatalf("Error: received status code %d", resp.StatusCode)
 	}
-
 	response := &response{}
 	linkHeader := resp.Header.Get("link")
 	if linkHeader != "" {

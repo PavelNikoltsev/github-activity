@@ -17,6 +17,9 @@ type Event struct {
 }
 
 func PrintEvents(events []Event) error {
+	if len(events) == 0 {
+		fmt.Println("No recent activity detected")
+	}
 	for _, event := range events {
 		err := event.print()
 		if err != nil {
