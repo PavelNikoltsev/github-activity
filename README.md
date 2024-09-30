@@ -2,8 +2,6 @@
 
 **GitHub Activity** is a command-line tool that retrieves the latest activity of a specified GitHub user.
 
-Project idea from <https://roadmap.sh/projects/github-user-activity>
-
 ## Features
 
 - Fetch the latest public activity for a GitHub user.
@@ -11,12 +9,17 @@ Project idea from <https://roadmap.sh/projects/github-user-activity>
 
 ## Installation
 
-Clone the repository and navigate to the project root.
+1. Clone the repository and navigate to the project root.
 
-```bash
-git clone https://github.com/PavelNikoltsev/github-activity.git
-cd github-activity
-```
+   ```bash
+   git clone https://github.com/PavelNikoltsev/github-activity.git
+   cd github-activity
+   ```
+2. Build the project:
+
+   ```bash
+   make build
+   ```
 
 ## Usage
 
