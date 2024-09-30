@@ -2,6 +2,8 @@
 
 **GitHub Activity** is a command-line tool that retrieves the latest activity of a specified GitHub user.
 
+Project idea from <https://roadmap.sh/projects/github-user-activity>
+
 ## Features
 
 - Fetch the latest public activity for a GitHub user.
